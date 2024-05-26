@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+
+               插件名:html-webpack-plugin
+
+        这个插件导出一个构造函数,HtmlWebpackPlugin 将这个构造函数,配置在配置文件里的plugins数组里。
+        执行webpack打包时,会生成多一个html文件,并将生成的js文件引用进html文件里
+
+            这个HtmlWebpackPlugin构造函数还可以传参数,参数为一个对象。
+            这个对象就是对生成的html文件进行配置
+
+            如果想生成多个html文件,就配置多个HtmlWebpackPlugin构造函数插件
+            这个插件配置多个不会覆盖,会根据每个chunk来对应
+
+            参数对象里面的属性: 
+                           template:路径
+                           这个属性,生成的html文件将以,这个属性的html文件,为模板生成hmtl文件
+
+                           filename:文件名
+                           这个属性,表示生成的html文件的名字,默认为index
+                           也可以是路径,加文件名,这样就会生成文件夹
+
+                           chunks:数组
+                           数组里面装chunk名字,也就是配置文件里入口配置对象里的属性名
+                           chunks:'all' 为默认值,表示生成的html文件有多个js引入
+
+               其他属性,查看官方文档
+
+                           
+
+     -->
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+
+                 #webpack内置插件
+                   所有的webpack内置插件都作为webpack的静态属性存在的,webpack模块导出一个函数
+                   内置插件都是导出的这个函数的内置插件。
+                   插件为函数。
+
+                   使用下面的方式可以创建一个插件对象
+                   const webpack = require('webpack');
+                   new webpack.插件名(options)
+
+                   在配置文件里面的插件属性里进行配置
+
+                   内置插件: 
+                      DefinePlugin
+                        这个插件用来定义,全局常量,使用该插件通常定义一些常量值
+                        该插件函数传一个参数对象,对象里面的属性,就是定义常量的属性
+                        列如: 
+                           new webpack.DefinePlugin({
+                               PI: `Math.PI`  会把字符串里面的内容赋给变
+                           })
+                           属性为自定义
+
+                        原理:
+                         当webpack在编译当AST语法分析时,在模块中如果有定义常量的属性名,会把它替换还成定义常量的值   
+
+
+                       BannerPlugin
+                         这个插件,用来为每个chunk生成的文件头部添加一行注释。
+                         该插件为函数,传一个参数对象,对象里面的属性:banner
+                         最终打包后的文件源码的顶部就会有 banner 这个属性值
+                        
+                         列如: 
+                           new webpack.BannerPlugin({
+                               banner:'hash:[hash]
+                                        name:[name]'
+                           })
+
+                         
+                      ProvidePlugin
+                         该插件函数为,自动加载模块,而不必导出 导入模块
+                         传一个参数对象,在参数对象里的属性,就是导入模块,属性值为模块名
+
+                         前提条件,就是必须有安装需要导入的模块模块了
+                         
+                         列如： 
+                           new webpack.providePlugin({
+                               jquery:'jquery',
+                           })
+                           将jq自动导所有模块中,就不是每个模块都导入jq
+
+                         原理:看源码  
+
+
+
+     -->
+</body>
+</html>

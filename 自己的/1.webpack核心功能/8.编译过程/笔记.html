@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+
+                                 webpack 的编译过程
+                    
+                   也就是进行打包的过程
+                      1.初始化
+                         webpack将cli参数(列如: --mode) 、 配置文件 、 默认配置 进行
+                         融合,形成一个最终的配置对象
+                         
+                         这个融合处理过程依托一个第三方库 yargs 来完成的
+
+                         后续操作根据这个 配置对象 来进行
+
+
+                      2.编译
+                           1.创建chunk
+                        chunk是webpack在内部构建过程中的一个概念,称为 块
+                        它表示通过某个入口找到所有依赖的统称
+                        根据入口模块,创建一个chunk
+                        每个chunk都有至少两个属性： 
+                                         1.name:默认为main
+                                         2.id:唯一编号,在开发环境下和name相同,在生成环境是一个数字,从0开始
+            
+                         2.构建所有依赖模块
+                                 chunk相当于一个列表
+                              列表：模块id               转换后的代码
+                                 './src/index.js'        index.js文件里面的代码
+                                 ....等
+     
+                              chunk列表用于记录根据入口文件联系下的所有依赖和每个模块的转换代码
+
+                            详情:查看 课件.md
+                            
+                        
+                      3.产生chunk assets
+                        在第二步完后,chunk中会产生一个模块列表,列表中包含了模块id和模块转换后的代码
+                        
+                        接下来,webpack会根据配置为chunk生成一个资源列表,即chunk assets,资源
+                        列表可以理解为是生成最终文件的文件名和文件内容
+
+                        会根据模块列表,进行赋值
+                          文件名                文件内容
+                         ./dist/main.js     (function (){
+                 
+                                               }({
+                                                   模块列表id:function (){
+                                                       根据第一步的初始化后的配置来设置代码
+                 
+                                                       转换后的代码
+                                                   }
+                                               }))
+                           chunk hash:xxxxxxxxxxx
+                           
+                        chunk hash是根据所有chunk assets的内容生成的一个hash字符串   
+
+
+                          
+
+                   
+
+
+                            
+                                   
+
+
+
+
+
+
+     -->
+</body>
+</html>

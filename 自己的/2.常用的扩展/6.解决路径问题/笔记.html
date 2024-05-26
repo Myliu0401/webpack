@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+
+               
+        # 解决路径问题
+        
+        在使用file-loader或url-loader时，可能会遇到一个非常有趣的问题
+        
+        比如，通过webpack打包的目录结构如下：
+        
+        ```yaml
+        dist
+            |—— img
+                |—— a.png  #file-loader生成的文件
+            |—— scripts
+                |—— main.js  #export default "img/a.png"
+            |—— html
+                |—— index.html #<script src="../scripts/main.js" ></script>
+        ```
+        
+        这种问题发生的根本原因：模块中的路径来自于某个loader或plugin，当产生路径时，loader或plugin只有相对于dist目录的路径，并不知道该路径将在哪个资源中使用，从而无法确定最终正确的路径
+        
+
+        比如: 
+          文件夹结构为上面的结构
+           页面中的图片路径为
+             ./img/xxx.jpg
+
+           而在服务器中打开页面,的路径是: 
+           http://localhost:8080//html/index.html
+           
+           
+          向服务器请求图片时路径就变成: 
+           http://localhost:8080//html/img/xxx.jpg
+         因为html文件,是在html文件夹里运行的,所以请求过来的js文件,也在html文件夹里运行,所以是这个地址  
+
+        而上面的结构文件夹里html文件夹里没有img文件夹,所以找不到图片
+    
+        没有改输出路径的话,一般这个dist文件夹部署到服务器,也就是一般会根文件部署到服务器
+        
+
+        面对这种情况，需要依靠webpack的配置publicPath解决
+        在webpack打包后源码中,配置文件里publicPath属性的值,就是这个__webpack_require__.p静态属性的值
+        
+         这个publicPath属性配置在,配置文件里的输出配置对象里
+
+         而在js文件中如果有 __webpack_public_path__ 属性,在webpack编译中AST语法分析中,会把这个属性变成
+         __webpack_require__.p
+
+
+         有些loader或plugin会对publicPath属性进行处理
+         如果配置publicPath属性为: '/' ,最后生成路径就会变成绝对路径
+         比如：http://localhost:8080为绝对路径
+            一般绝对路径都是根目录
+
+            就变成http://localhost:8080/img/xxx.jpg
+            
+
+         
+          在输出对象配置中,配置 publicPath属性 会影响所有用到这个属性的插件或扩展
+          而在会用到这个属性的 loader或plugin 里配置只影响自己
+
+
+          要根据 loader或plugin 来看有没有需要这个配置
+
+          
+
+
+
+     -->
+</body>
+
+</html>

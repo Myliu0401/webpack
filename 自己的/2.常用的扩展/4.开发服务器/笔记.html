@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 
+                 开发服务器
+                    在开发阶段,目前遇到的问题是打包、运行、调试过程过于繁琐。
+                    流程: 
+                       1.编写代码
+                       2.控制台运行命令完成打包
+                       3.打开页面查看效果
+                       4.继续编写代码,回到步骤2
+                     这个过程过于繁琐,并且我们往往希望把最终生成的代码和页面部署到服务器上,来模拟真实环境
+                     为了解决这些问题,webpack官方制作了一个单独的库: webpack-dev-sever
+                     webpack-dev-server它即不是plugin也不是loader
+
+                     执行:命令
+                      npx webpack-dev-server
+                    
+                      webpack-dev-server命令几乎支持所有的webpack命令参数,如 --config 、 -env等
+                      这个命令是专门为开发阶段服务的,真正部署的时候还是得使用webpack命令
+
+                      webpack-dev-server的内部原理: 
+                        1.内部执行webpack命令,如果有参数就传递参数
+                        2.开启watch,配置进行监听
+                        3.注册hooks:类似于plugin,webpack-dev-server会向webpack中注册一些钩子函数
+                          主要功能: 
+                              1.将资源列表(aseets)保存起来
+                                 相当于 cosnt aseets = complitaion.assets
+                                       
+                              2.禁止webpack输出文件  
+                                相当于 complitaion.assets = {}
+                                       这样就无法形成文件
+                        4.用express开启一个服务器,监听某个端口,当请求后,根据路径,找保存起来的
+                          资源,返回给浏览器       
+                          
+                    
+                    配置
+                     设置在配置文件 devServer对象
+                     这个对象是专门给 webpack-dev-server 配置
+                     对象中的属性: 
+                        port:端口号(自定义)
+                        指定端口号,应大于等于0且小于65536
+
+                        open:布尔值
+                        是否自动运行浏览器,并且自动请求
+
+                        index:'文件名'
+                        指定查看的文件
+                        默认会自动加上,并且加上的是index.html
+
+                        openPage:'路径'
+                        表示打开的页面
+
+
+                        stats:对象
+                          对象里面的属性: 
+                                 modules:布尔值
+                                 colors:布尔值  
+                        配置控制台输出内容
+
+
+                        服务器代理
+                        proxy:对象
+                         对象里面的属性 (属性名为根据url自定义)
+                         "/api": { 请求规则
+                             target: url地址中 /api 前面的地址 (如: https://www.duyi.com)
+                             changeOrigin:true 表示更改请求头中的host和origin
+                         }
+                        这个配置是解决跨域的问题
+                        如果有种请求,就继续写请求规则,每一个对象为一个请求规则
+
+                        原理: 
+                           当向 webpack-dev-server的服务器请求时 会把 url交给 webpack-dev-server 进行处理
+                           "/api"这个属性名字,webpack会用正则表达式匹配,如果url中匹配到,就会把url地址中
+                           /api前面的内容改成 target这个属性的内容,会根据changeOrigin属性判断要不要改请求头
+                           中的host和origin属性,然后向服务器发送请求
+
+                           整个过程发生在服务器,也就是node中,所以不会发生跨域
+                       
+
+/* 
+
+ 因为页面在 webpack-dev-server 服务器下,所以请求时,会自动加上域名等
+
+*/
+                          
+
+                   其他配置,查看官方文档
+
+                        
+                        
+
+
+                     
+
+
+                 
+
+
+     -->
+</body>
+
+</html>

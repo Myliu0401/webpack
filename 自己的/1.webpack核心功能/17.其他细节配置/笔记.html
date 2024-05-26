@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+             其他配置: 
+                 1. context: 绝对路径
+                  该配置会影响入口和loader的解析,入口和loader的相对路径会以context的配置
+                  作为基准路径。
+                    相当于,配置文件里的文件需要路径的,就会以context的路径为基准,进行配置,也就是
+                          在context路径下进行  
+               
+
+                 2. output对象中的配置属性(output配置为出口文件)
+                    library: 字符串
+                    这样一来,打包后的结果中,会将自执行函数的执行结果赋给 字符串(library)
+                    相当于: library属性,是在webpack打包后的源码中,在全局声明一个变量,然后
+                    自执行函数的返回结果赋给,全局这个变量,返回结果是入口文件的导出结果。
+                    如果一个chunk有多个入口文件,则导出最后一个入口文件的导出内容。
+
+                    libraryTarget: 'var'
+                      该配置可以更加精细的控制如何暴露入口包的导出结果
+                      其他可用的值有: 
+                                   var: 默认值,暴露给一个普通变量
+                                   window:暴露给window对象的一个属性
+                                   this:暴露给this的一个属性
+                                   global:暴露给global的一个属性
+                                   commonjs:暴露给exports的一个属性
+                        比如暴露给window,window对象上就有library这个属性值的变量
+
+      
+                  3.target: 'web' //默认值
+                      设置打包结果最终要运行的环境
+                        web: 打包后的代码运行在web环境中
+                        node: 打包后的代码运行在node环境中
+                    比如:在模块中导入node的内置模块,如果没有设置target值,在语法解析中就会报错  
+                    
+                   
+                  4.module对象中的配置属性
+                     noParse: /模块/
+                     不解析正则表达式匹配得模块,不对匹配到的模块做任何解析,直接将源代码放置模块内容中
+                     在webpack编译中,在读取文件内容后,就直接将源代码放置模块内容,以提高构建性能。
+                     **通常用它来忽略那些大型的单模块库,以提高构建性能**
+
+
+                  5.resolve对象中的配置属性
+                       modules: ['node_modules'] //默认配置
+                       当解析模块时,如果遇到导入语句,require('test'),webpack会从下面的位置寻找依赖的模块
+                        位置寻找依赖的模块: 
+                          1.当前目录下的 node_modules 目录
+                          2.上级目录下的 node_modules 目录
+                          3. ...
+
+                        
+                        extensions:['.js','.json'] //默认值  
+                        当解析模块时,遇到无具体后缀的导入语句,列如:require('test'),会根据
+                        模块的后缀名,来匹配extensions的属性值里的项
+
+                        为什么导入模块没有书写后缀名,仍然可以找到
+                          因为webpack会根据 extensions 的配置自动补全后缀名
+
+                        
+                        alias对象中的配置属性
+                          属性名自定义:绝对路径
+                          
+                          有了alias(后),导入语句中可以加入配置的键名,列如: 
+                          require('alis对象里的属性/abc.js'),webpack会将其看作是
+                          require(src的绝对路径+'/abc.js')。
+                          相当于可以简写导入模块的路径。
+
+                  6.externals对象中的配置属性
+                       库名:库的全局变量
+                       比如: 
+                          externals:{
+                              jquery:'$',
+                              lodash:'_'
+                          }
+                    在html页面引入外部链接的jquery CDN 后,webpack在打包时,就不会将包文件中
+                    的导入jquery的源码也打包进去,最后webpack生成文件源码中的jquery函数只导出
+                    一个externals对象中的jquery属性的值
+
+
+                  7.stats对象中的配置属性
+                    stats控制的是构建过程中控制台的输出内容
+                    查看官方文档
+
+
+
+
+                        
+                        
+  
+               
+
+
+
+     -->
+</body>
+
+</html>

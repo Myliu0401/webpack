@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+
+           加载器:file-loader 
+                专门处理图片的
+               
+                会把模块处理成url,并导出,然后生成一个内容一模一样的文件,并且根据配置文件的名字输出在输出目录里
+
+                因为file-loader会把模块的内容以 export default的方式导出,所以用commonjs的方式导入,会是一个对象
+                对象里的 default属性就是url地址 
+
+                配置file-loader的参数对象: 
+                              options:{}
+                              参数对象中的属性: 
+                                            name:'文件名'
+                                            相当于导出的url,也就是文件名
+
+                                            文件名可以是动态的: [name] 、 [hash] 、[ext]
+                                              name表示原来文件的名字,ext表示原来文件后缀
+                                              hash这里的hash表示自己文件的hash而不是总hash,因为
+                                              这里的hash是交给file-loader模块来处理的而不是交给webpack处理
+
+                                            文件名前面还可以加上路径,以生产文件夹,比如: 
+                                              name:'img/[name]-[hash].[ext]'
+ 
+                                            
+           加载器:url-loader
+               专门处理图片
+
+             会把模块处理成base64格式,并通过 export default将其导出,而不会生成一个同样内容的文件到输出目录
+
+             配置参数: 
+                limit:false 
+                表示不限制任何大小,所有经过loader的文件进行base64编码返回
+
+               limit:10 * 1024, //只要文件不超过 100*1024 字节，则使用base64编码，否则，交给file-loader进行处理
+                 内部会自动调用file-loader
+
+               limit属性值可以改  
+
+     -->
+</body>
+</html>

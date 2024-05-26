@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+           为了适应多种环境要求,webpack允许配置不仅可以是一个对象，还可以是一个函数
+             module.exports = function (env){
+                 return {
+                      //配置内容
+                 }
+             }
+
+                在开始构建时(初始化),webpack如果发现配置是一个函数,会调用该函数,将函数
+                返回的对象作为配置内容,因此,开发者可以根据不同的环境返回不同的对象
+
+                在调用webpack函数时,webpack会向函数传入一个参数env,该参数的值来自于
+                webpack命令中给env指定的值,如:
+                    npx webpack --env abc
+                        参数env的值就是 abc
+
+                    npx webpack --env.abc
+                        参数env的值就是 一个对象,里面有abc属性,值为true
+
+                    npx webpack --env.abc=1
+                        参数env的值就是 一个对象,里面有abc属性,值为1
+
+                    npx webpack --env.abc=1 --env.bcd=2
+                        参数env的值就是 一个对象,里面有abc属性,值为1  和bcd属性,值为2
+
+
+          
+
+
+     -->
+</body>
+</html>

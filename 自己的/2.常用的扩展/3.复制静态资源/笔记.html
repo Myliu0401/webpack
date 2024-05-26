@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+
+               插件名字:copy-webpack-plugin
+                  该插件是将模板文件里面的静态资源,复制到输出目录里,这样以模板的html,生成的html文件
+                  里面的静态资源才能找到
+
+                  该插件导出一个构造函数,该构造函数传入一个参数对象,对该参数对象进行配置
+                  该对象里的属性: 
+                          patterns: 数组
+                      数组里装着复制规则,一个规则为一个对象,如: 
+                         
+                        {
+                            patterns:[
+                                 {
+                                     from: '复制文件的路径',
+                                     to:'输出文件的路径'
+                                 } 
+                            ]
+                        }
+
+                    from 和 to 表示从那个地方复制到那个地方
+                    to表示输出目录,也就相当于表示dist文件夹
+
+                    from复制文件夹里有和输出文件夹里有冲突文件时,复制会自动忽略掉冲突文件
+                  
+
+                 
+              在webpack里所有的输出路径,都可以在路径前面加文件夹,来装输出文件      
+
+
+
+     -->
+</body>
+</html>

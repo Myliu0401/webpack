@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+
+                #loader
+                   webpack做的事情,仅仅是分析出各种模块依赖,然后形成资源列表,最终打包生成
+                   到指定的文件中
+                   更多的功能需要借助 weboack loader和webpsck plugin完成。
+                   loader表示加载器
+                   plugin表示插件
+
+                   webpack loader, loader本质上是一个函数,它的作用是将某个源码字符串
+                   转换成另一个源码字符串返回
+                   原理: 会将js文件的内容提取后,做为参数传给loader函数,loader函数经过处理后返回
+
+                   loader步骤,在webpack编译中的 读取文件内容后面 AST语法分析前面
+                   相当于读取文件内容后,将其作为参数传给loader函数,loader函数经过处理返回,AST进行解析
+                   也就是loader函数在模块解析中被调用
+
+                   loader的写法:
+                        用commontjs导出一个函数,这个函数就是一个loader
+                        module.exports = function (){
+
+                        }
+
+                
+                    在loader这个步骤的处理: 
+                      1.  判断当前模块是否
+
+                          满足某个规则
+                          满足就进入 2
+                          
+                          不满足默认为空数组
+                       
+                      2.读取配置文件中的规则中对应的loader函数,将对应的loader函数push进数组   
+                        第2步后,进入第三步
+
+                      3.循环loader数组 
+                        会将文件内容做为参数传给 loader数组中的loader函数,loader函数返回,如果loader数组中
+                        不止一个loader函数,就将前一个loader函数返回的值,作为参数传给下一个loader函数
+                        最后返回给AST语法解析  
+
+                        循环loader数组是倒着循环,也就是从loader数组里面的最后一个loader函数开始执行
+                      
+                      
+
+                    loader的配置:
+                        module:{
+                             rules:[
+                                {
+                                    test: /文件/ , //正则表达式,匹配模块路径
+                                    use:[
+                                       {
+                                           loader: 'loader函数的路径',
+                                           options:{
+                                               属性名(自定义):属性值(值定义)
+                                           }
+                                       }
+                                    ]
+                                }
+                             ]
+                        }　
+
+                      module表示模块,是一个对象
+                      rules表示规则,rules是一个数组 
+                      rules数组里的每一个对象表示每一个模块文件,对象里的test属性,表示模块文件,必须用正则表达式
+                      对象里的use数组,表示装加载器,use数组里每一个对象表示一个加载器,对象里的loader属性,表示loader函数的路径
+                      每个loader函数,还可以有参数,options对象,options不会被作为参数传给loader函数
+
+                      原理: 
+                        在webpack编译到了 loader这个步骤时,会判断当前模块是否需要loader1处理,
+                        查找配置文件里的module对象,进行查找,如果需要就进行处理,不需要就直接返回文件
+                        内容,给AST进行语法解析。
+
+                        use数组里的每个对象代表每个loader函数,每个对象里的loader属性表示,loader函数地址
+                        options表示额外信息,在webpack的源码运行中会把 loader函数的this经过处理,而this对象
+                        中包含配置文件对象,源码过于复杂,无法解释
+
+                        而想要从loader函数的this对象里获取到 配置文件里的options对象 太难以分析,所以
+                        利用loader-utils库获取
+                        loader-utils库对象里的getOptions函数用于获取 配置文件的options对象
+                        getOptions函数要传一个loader函数的this,来获取到this的options
+
+                        
+                    　　    
+
+     -->
+</body>
+</html>

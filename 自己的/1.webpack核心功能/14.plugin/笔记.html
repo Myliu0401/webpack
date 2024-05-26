@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+                 #plugin
+                      ~当 webpack 生成文件时,顺便多生成一个说明文件
+                      ~当 webpack 编译启动时,控制台输出一句表示webpack启动了
+                      ~当xxx时，xxx
+                    这种类似的功能需要把功能嵌入到webpack的编译流程中，而这种事情的实现是依托于plugin的  
+                      相当于 plugin 是用于注册事件的,当webpack在初始化开始时,到生成最终文件,会触发一系列事件,这些
+                      事件绑定要在apply函数内绑定
+
+                    plugin的本质是一个带有apply方法的对象: 
+                      plugin = {
+                          apply:function (complier){
+
+                          }
+                      }
+
+
+                    也可以是: 
+                       class plugin{
+                           apply(complier){
+
+                           }
+                       }  
+                       
+                    
+                要将插件应用到webpack,需要把插件对象配置到webpack的plugins数组中   
+                   module.exports = {
+                       pulgins:[
+                           plugin对象
+                       ]
+                   }
+
+                apply函数会在初始化阶段,创建好complier对象后运行
+                     原理: 
+                        webpack在初始化阶段会创建一个对象(complier),
+                        把这个对象作为参数传给apply函数(执行apply函数)。
+             
+                complier对象是在初始化阶段构建的,整个webpack打包期间只有一个complier对象,
+                后续完成打包工作的是complier对象内部创建的compliation对象
+                    原理: 在初始化完成后,在complier对象内会创建一个compliation对象
+                    
+                
+                如果webpack处于监听状态,文件内容发生变动,会再次创建compliation对象,而不会再次创建
+                complier对象,因为complier对象是在初始化阶段创建的,而初始化阶段是分析配置文件的。
+                如果要再次创建complier对象,只能重新打包。
+
+
+                complier对象中提供了大量的钩子函数(hooke,可以理解为事件),plugin的开发者可以注册这些函数
+                参与webpack编译和生成
+
+                在apply方法中使用complier对象中的hooke对象进行注册事件
+                   class plugin{
+                       apply(complier){
+                           complier.hooks.事件名称.事件类型(name,function (compliation){
+                               //事件处理函数
+                           })
+                       }
+                   }
+
+                事件类型: 
+                   在课件中   
+
+
+     -->
+</body>
+</html> 

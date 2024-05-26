@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+
+             ./ 在不同环境中路径的表示
+
+             1.模块化代码中,比如 require("./"),表示当前js文件所在的目录
+             2.在路径处理中,"./"表示 node 运行目录
+               表示在哪个目录下运行的, ./ 就表示哪个目录(相当于在哪个目录下进行操作,就表示哪个目录)
+               比如: 
+                 C:\Users\刘玉联\Desktop\前端\webpack_webpack\自己的\1.webpack核心功能\9.入口和出口>node  src/index.js
+                此时 ./ 表示C:\Users\刘玉联\Desktop\前端\webpack_webpack\自己的\1.webpack核心功能\9.入口和出口>
+                
+
+             3.__dirname: 所有情况下,都表示当前运行的js文件所在的目录,是一个绝对路径
+
+
+
+
+              #入口和出口
+                出口: 
+                   这里的出口是针对资源列表的文件名或路径的配置(相当于 对象 assets 进行配置)
+                   就是 给 webpack编译后的 总资源列表中的文件 进行路径配置(把生成后的文件放在哪个目录)
+                 在配置文件里的output对象属性里,进行配置
+                   1.path:  //必须配置一个绝对路径,表示资源放置的路径
+                     原理:在合并 chunk assets 形成总的 assets 后,相当于总的 assets 列表
+                          这个列表记录了 每个chunk assets。
+                          给总的 assets 配置路径,最后生成的文件路径就会根据 path来
+                          相当于每个 chunk assets 的路径就会根据 总的 assets 来
+
+
+                   2.filename: 可以写文件名(写文件名,就把main.js的名字给改了),或路径   //这个参数目前只配置 资源的js文件, 配置合并的js文件的规则
+                     配置的规则: 
+                      静态的
+                        可以是名字,也可以是路径
+                        名字,相当于 配置 assets 的名字,assets里面的js文件名就会根据assets来改动
+                        路径,相当于 配置 assets 的名字,但assets会对名字进行解析,变成路径 加在 path 路径下
+                                                 
+                      动态的
+                        [name]
+                        filename:[name].js。 原理: 当最后生成文件时,chunk的名称会替换掉name 
+
+                        [hash]
+                        hash:总assets的hash, hash通过用于解决缓存的问题
+                        原理: 浏览器会请求html,对html进行解析,解析到script后请求js,最后会缓存起来
+                              当js文件内容发生变动时,浏览器再请求时,缓存里有还是用缓存的js文件,就
+                              无法应用最新的js文件。
+                              而hash,是根据文件内容来生成的,只要文件内容发生变化,hash就发生变化
+                        [hash:数字],表示取hash值的头几位
+                        [chunkhash],表示使用chunk的hash,而不是使用总assets的hash   
+                        [chunkid],表示使用chunk的id   
+
+
+
+                入口: 
+                   这里的入口是针对chunk,进行配置的
+                   在配置文件里的entry对象里进行配置
+                    entry对象里的属性: 
+                             1.main: 入口文件的路径  //属性名:chunk的名,属性值:入口模块
+                               因为webpack编译时,跟据入口文件来生成chunnk
+                               默认为main属性,也可以另起
+                    如果写成entry:'入口文件路径',也会被webpack转换成 entry对象   
+                    
+                    原理: 
+                      webpack在编译时,会创建一个chunk,chunk的名称会查找,配置文件的entry对象,
+                      把entry对象里的属性名,做为chunk的名称,然后会查找入口文件,进行分析依赖,
+                      而会根据属性值来找入口文件。
+                      entry对象里的每个属性,对应每个chunk,chunk也是根据entry对象里的属性来生成的。
+
+                      如果配置多个属性,形成多个chunk,最后在出口配置哪里的filename属性,进行配置就要变成动态了
+                      因为生成js文件时,名字冲突了(重名了)
+
+                    
+                      entry对象中的属性值,还可以是数组
+                      比如: ['./src/index.js','./src/.a.js']
+                        原理: 
+                          同样只生成一个chunk,而这个chunk有两个入口文件,会从这两个入口文件,进行分析依赖关系
+                          最后生成的文件里,源码里就有执行两个入口文件
+                       
+                   
+
+
+     -->
+</body>
+</html> 
